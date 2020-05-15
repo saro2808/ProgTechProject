@@ -1,9 +1,9 @@
 #include <ncurses.h>
 #include <string>
+#include <stdlib.h>
 #include <cstdlib>
 #include <time.h>
 #include "player.h"
-#include "/home/saro/myfolder/getrandom_int.h"
 #include "opponents.h"
 using namespace std;
 
@@ -15,10 +15,6 @@ int main() {
 	int yMax, xMax;
 	getmaxyx(stdscr, yMax, xMax);
 
-	mvaddch(yMax/3, xMax/2, '|');
-	mvaddch(yMax/1.5 + 1, xMax/2, '|');
-	refresh();
-
 	Player* p = new Player(yMax/2, 1, '@');
 	Opponents op;
 	op.total = 0;
@@ -26,6 +22,12 @@ int main() {
 		op.wonline[i] = 0;
 	}
 	int iter = 0;
+	/*mvaddch(yMax/3, xMax/2, '|');
+	mvaddch(yMax/1.5 + 1, xMax/2, '|');
+	op.wonline[yMax/3] += 1;
+	op.wonline[2*yMax/3] += 1;
+	refresh();*/
+
 	time_t start, now;
 	time(&start);
 	do {

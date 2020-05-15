@@ -11,8 +11,8 @@ class Opponents {
 };
 
 void Opponents::gentarg() {
-	int y = getrandom_int() % (yMax - 2) + 1;
-	int x = getrandom_int() % (xMax/2) + xMax/2;
+	int y = abs(int(rand())) % (yMax - 2) + 1;
+	int x = abs(int(rand())) % (xMax/2) + xMax/2;
 	mvaddch(y, x, '|');
 	total++;
 	wonline[y]++;
