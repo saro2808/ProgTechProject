@@ -1,3 +1,5 @@
+#include <unistd.h>
+
 class Player {
 	public:
 		Player(int y, int x, char c);
@@ -79,10 +81,7 @@ void Player::shoot() {
 	const int step = 10;
 	int j;
 	for (j = 0; xLoc + (j - 1) * step < xMax; j++) {
-		int i = 0;
-		while(i < 10000000) {
-			i++;
-		}
+		usleep(3000);
 		mvhline(yLoc, xLoc, ' ', step * j);
 		refresh();
 		mvhline(yLoc, xLoc + step * j, '.', step);

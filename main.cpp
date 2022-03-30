@@ -7,6 +7,23 @@
 #include "opponents.h"
 using namespace std;
 
+/*
+enum { NS_PER_SECOND = 1000000000 };
+
+void sub_timespec(struct timespec t1, struct timespec t2, struct timespec *td) {
+    td->tv_nsec = t2.tv_nsec - t1.tv_nsec;
+    td->tv_sec  = t2.tv_sec - t1.tv_sec;
+    if (td->tv_sec > 0 && td->tv_nsec < 0) {
+        td->tv_nsec += NS_PER_SECOND;
+        td->tv_sec--;
+    }
+    else if (td->tv_sec < 0 && td->tv_nsec > 0) {
+        td->tv_nsec -= NS_PER_SECOND;
+        td->tv_sec++;
+    }
+}
+*/
+
 int main() {
 	initscr();
 	noecho();
@@ -22,37 +39,42 @@ int main() {
 		op.wonline[i] = 0;
 	}
 	int iter = 0;
-	/*mvaddch(yMax/3, xMax/2, '|');
-	mvaddch(yMax/1.5 + 1, xMax/2, '|');
-	op.wonline[yMax/3] += 1;
-	op.wonline[2*yMax/3] += 1;
-	refresh();*/
 
-	time_t start, now;
+	for (int i = 0; i < 10; ++i) {
+		op.gentarg();
+	}
+
+	//struct timespec start, now, delta;
+	//clock_gettime(CLOCK_REALTIME, &start);
+	time_t start, now, delta;
 	time(&start);
 	do {
+		//clock_gettime(CLOCK_REALTIME, &now);
+		//sub_timespec(start, now, &delta);
 		time(&now);
-		if(now - start > 1) {
+		delta = now - start;
+		if (delta/*.tv_sec*/ > 1) {
 			op.gentarg();
+			//clock_gettime(CLOCK_REALTIME, &start);
 			time(&start);
 		}
 		
 		p->display();
 		refresh();
 
-		if(p->justshot) {
+		if (p->justshot) {
 			op.vanish(p->gety());
 			p->justshot = false;
 		}
 
-		if(op.total == 0 && iter > 0) {
+		if (op.total == 0 && iter > 0) {
 			mvprintw(yMax/2 - 1, xMax/2 - 3, "YOU WON!!!");
 			getch();
 			endwin();
 			return 0;
 		}
-		iter++;
-	} while(p->getmv() != 'q');
+		++iter;
+	} while (p->getmv() != 'q');
 
 	endwin();
 

@@ -1,6 +1,10 @@
-Игра такова: произвольным образом на экране появляются стены, и их нужно уничтожать. Как часто курсор двигается или стреляет, так часто и появляются новые стены. Цель игры — не оставить никаких стен.
-Есть две классы: Player и Opponents с соответствующими функциями.
-
-Игра запускается следующим образом:
-g++ main.cpp -lncurses
-./a.out
+The game is as follows: walls randomly appear on the screen and the player needs to break them all. As often the cursor moves or shoots so often new walls appear. The goal of the game is not to leave any walls.
+The player can move up or down the shooter cursor using corresponding keys. Press `d` to shoot.
+To build the game use the following command:
+```
+g++ main.cpp -lncurses -o wall_shooter
+```
+To run the game type
+```
+./wall_shooter
+```
